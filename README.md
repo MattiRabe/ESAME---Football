@@ -1,4 +1,4 @@
-# Campi da Calcio a 5
+# Futsal fields
 
 (the Italian version is available in file [README_it.md](README_it.md)).
 
