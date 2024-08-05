@@ -9,7 +9,7 @@ public class Field {
     private boolean indoor;
     private boolean heating;
     private boolean ac;
-    private Integer number;
+    private int number;
 
     public Field(boolean indoor, boolean heating, boolean ac) {
         this.indoor = indoor;

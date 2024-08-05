@@ -14,6 +14,7 @@ public class Fields {
     private String openingTime;
     private String closingTime;
     TreeMap<Integer, Field> fields = new TreeMap<>();
+    TreeMap<Integer, Associate> associates = new TreeMap<>();
 	    
     public static class Features {
         public final boolean indoor; // otherwise outdoor
@@ -60,23 +61,28 @@ public class Fields {
     }
 
     public int newAssociate(String first, String last, String mobile) {
-        return -1;
+        Associate a = new Associate(first, last, mobile);
+        associates.put(a.getId(), a);
+        return a.getId();
     }
     
     public String getFirst(int associate) throws FutsalException {
-        return null;
+        if(!associates.containsKey(associate)) throw new FutsalException();
+        return associates.get(associate).getFirst();
     }
     
     public String getLast(int associate) throws FutsalException {
-        return null;
+        if(!associates.containsKey(associate)) throw new FutsalException();
+        return associates.get(associate).getLast();
     }
     
     public String getPhone(int associate) throws FutsalException {
-        return null;
+        if(!associates.containsKey(associate)) throw new FutsalException();
+        return associates.get(associate).getPhone();
     }
     
     public int countAssociates() {
-        return -1;
+        return associates.size();
     }
     
     public void bookField(int field, int associate, String time) throws FutsalException {

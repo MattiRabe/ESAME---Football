@@ -38,7 +38,6 @@ public final class TestApp {
         int p1 = fields.newAssociate("Genny", "Sava", "3334445566");
         int p2 = fields.newAssociate("Remo", "Williams", "3337778899");
         int p3 = fields.newAssociate("Ugo", "Ughi", "3331112233");
-
         
         assertTrue(p1!=p2);
         assertEquals(3,fields.countAssociates());
