@@ -2,6 +2,7 @@ package it.polito.oop.futsal;
 
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Represents a infrastructure with a set of playgrounds, it allows teams
@@ -9,6 +10,10 @@ import java.util.Map;
  *
  */
 public class Fields {
+
+    private String openingTime;
+    private String closingTime;
+    TreeMap<Integer, Field> fields = new TreeMap<>();
 	    
     public static class Features {
         public final boolean indoor; // otherwise outdoor
@@ -21,29 +26,37 @@ public class Fields {
     
 	
     public void defineFields(Features... features) throws FutsalException {
-
+        for(Features f : features){
+            if(f.indoor==false){
+                if(f.heating==true || f.ac==true) throw new FutsalException(); 
+            }
+            Field fd = new Field(f.indoor, f.heating, f.ac);
+            fields.put(fd.getNumber(), fd);
+        }
     }
     
     public long countFields() {
-        return -1;
+        return fields.size();
     }
 
     public long countIndoor() {
-        return -1;
+        return fields.values().stream().filter(Field::isIndoor).count();
     }
     
     public String getOpeningTime() {
-        return null;
+        return this.openingTime;
     }
     
     public void setOpeningTime(String time) {
+        this.openingTime=time;
     }
     
     public String getClosingTime() {
-        return null;
+        return this.closingTime;
     }
     
     public void setClosingTime(String time) {
+        this.closingTime=time;
     }
 
     public int newAssociate(String first, String last, String mobile) {
