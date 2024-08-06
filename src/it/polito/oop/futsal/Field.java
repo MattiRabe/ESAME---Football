@@ -1,5 +1,6 @@
 package it.polito.oop.futsal;
 
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class Field implements FieldOption {
@@ -12,7 +13,7 @@ public class Field implements FieldOption {
     private boolean heating;
     private boolean ac;
     private int number;
-    private TreeSet<String> reservations = new TreeSet<>();
+    private TreeMap<String, Associate> reservations = new TreeMap<>();
 
     public Field(boolean indoor, boolean heating, boolean ac) {
         this.indoor = indoor;
@@ -34,12 +35,12 @@ public class Field implements FieldOption {
         return number;
     }
 
-    public TreeSet<String> getReservations() {
+    public TreeMap<String, Associate> getReservations() {
         return reservations;
     }
 
-    public void addReservations(String time) {
-        reservations.add(time);
+    public void addReservations(String time, Associate a) {
+        reservations.put(time, a);
     }
 
     @Override

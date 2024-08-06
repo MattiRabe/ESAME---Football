@@ -97,7 +97,7 @@ public class Fields {
         Integer openMin = Integer.parseInt(openString[0])*60 + Integer.parseInt(openString[1]);
         Integer difference = timeMin-openMin;
         if(difference%60 != 0) throw new FutsalException();
-        fields.get(field).addReservations(time);
+        fields.get(field).addReservations(time, associates.get(associate));
         
         if(!totReservations.containsKey(time)){
             LinkedList<Field> l = new LinkedList<>();
@@ -110,7 +110,7 @@ public class Fields {
     }
 
     public boolean isBooked(int field, String time) {
-        if(fields.get(field).getReservations().contains(time)) return true;
+        if(fields.get(field).getReservations().containsKey(time)) return true;
         return false;
     }
     
@@ -127,7 +127,7 @@ public class Fields {
     }
     
     public long countServedAssociates() {
-        return -1;
+        return fields.values().stream().flatMap(f->f.getReservations().values().stream()).distinct().count();
     }
     
     public Map<Integer,Long> fieldTurnover() {
