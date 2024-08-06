@@ -2,7 +2,7 @@ package it.polito.oop.futsal;
 
 import java.util.TreeSet;
 
-public class Field {
+public class Field implements FieldOption {
 
     private final static int INCREMENT = 1;
     private static int BASE = 0;
@@ -41,5 +41,29 @@ public class Field {
     public void addReservations(String time) {
         reservations.add(time);
     }
+
+    @Override
+    public int getField() {
+        return number;
+    }
+
+    @Override
+    public int getOccupation() {
+        return reservations.size();
+    }
+
+    public boolean isAcceptable(boolean indoor, boolean heating, boolean ac){
+        if(indoor==true){
+            if(this.indoor==false) return false;
+        } 
+        if(heating==true){
+            if(this.heating==false) return false;
+        }
+        if(ac==true){
+            if(this.ac==false) return false;
+        }
+        return true;
+    }
+    
     
 }

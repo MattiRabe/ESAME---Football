@@ -1,9 +1,11 @@
 package it.polito.oop.futsal;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 /**
  * Represents a infrastructure with a set of playgrounds, it allows teams
@@ -114,11 +116,14 @@ public class Fields {
     
 
     public int getOccupation(int field) {
-        return -1;
+        return fields.get(field).getReservations().size();
     }
     
     public List<FieldOption> findOptions(String time, Features required){
-        return null;
+        return fields.values().stream().filter(f-> !isBooked(f.getField(), time))
+        .filter(f-> f.isAcceptable(required.indoor, required.heating,required.ac))
+        .sorted(Comparator.comparing(Field::getOccupation).reversed().thenComparing(Field::getField))
+        .collect(Collectors.toList());
     }
     
     public long countServedAssociates() {
