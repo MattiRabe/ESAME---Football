@@ -65,6 +65,10 @@ public class Field implements FieldOption {
         }
         return true;
     }
+
+    public Long getSizeLong() {
+        return (long)reservations.size();
+    }
     
     
 }

@@ -131,11 +131,19 @@ public class Fields {
     }
     
     public Map<Integer,Long> fieldTurnover() {
-        return null;
+        Map<Integer, Long> map =  fields.values().stream().collect(Collectors.toMap(Field::getNumber, Field::getSizeLong, (d1,d2)->d1, TreeMap::new));
+        return map;
     }
     
     public double occupation() {
-        return -1;
+        int totRes = (int)totReservations.values().stream().flatMap(List::stream).count();
+
+        String openingString[]= openingTime.split(":");
+        Integer openingMin = Integer.parseInt(openingString[0])*60 + Integer.parseInt(openingString[1]);
+        String closingString[]= closingTime.split(":");
+        Integer closingMin = Integer.parseInt(closingString[0])*60 + Integer.parseInt(closingString[1]);
+        int totSlot = (closingMin-openingMin) / 60;
+        return (totRes/totSlot);
     }
     
  }
