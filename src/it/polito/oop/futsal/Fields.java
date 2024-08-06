@@ -1,5 +1,6 @@
 package it.polito.oop.futsal;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -15,6 +16,7 @@ public class Fields {
     private String closingTime;
     TreeMap<Integer, Field> fields = new TreeMap<>();
     TreeMap<Integer, Associate> associates = new TreeMap<>();
+    TreeMap<String, List<Field>> totReservations = new TreeMap<>();
 	    
     public static class Features {
         public final boolean indoor; // otherwise outdoor
@@ -86,9 +88,27 @@ public class Fields {
     }
     
     public void bookField(int field, int associate, String time) throws FutsalException {
+        if(!fields.containsKey(field) || !associates.containsKey(associate)) throw new FutsalException();
+        String timeString[]= time.split(":");
+        Integer timeMin = Integer.parseInt(timeString[0])*60 + Integer.parseInt(timeString[1]);
+        String openString[] = openingTime.split(":");
+        Integer openMin = Integer.parseInt(openString[0])*60 + Integer.parseInt(openString[1]);
+        Integer difference = timeMin-openMin;
+        if(difference%60 != 0) throw new FutsalException();
+        fields.get(field).addReservations(time);
+        
+        if(!totReservations.containsKey(time)){
+            LinkedList<Field> l = new LinkedList<>();
+            l.add(fields.get(field));
+            totReservations.put(time, l);
+        }
+        else{
+            totReservations.get(time).add(fields.get(field));
+        }
     }
 
     public boolean isBooked(int field, String time) {
+        if(fields.get(field).getReservations().contains(time)) return true;
         return false;
     }
     

@@ -1,5 +1,7 @@
 package it.polito.oop.futsal;
 
+import java.util.TreeSet;
+
 public class Field {
 
     private final static int INCREMENT = 1;
@@ -10,6 +12,7 @@ public class Field {
     private boolean heating;
     private boolean ac;
     private int number;
+    private TreeSet<String> reservations = new TreeSet<>();
 
     public Field(boolean indoor, boolean heating, boolean ac) {
         this.indoor = indoor;
@@ -30,4 +33,13 @@ public class Field {
     public Integer getNumber() {
         return number;
     }
+
+    public TreeSet<String> getReservations() {
+        return reservations;
+    }
+
+    public void addReservations(String time) {
+        reservations.add(time);
+    }
+    
 }
